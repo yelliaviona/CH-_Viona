@@ -3,7 +3,9 @@ package repository;
 import entity.ReadFile;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,124 +25,121 @@ public class ReadFileRepositoryImpl implements ReadFileRepository{
     private int countEqual = 0;
     private int countLessThan = 0;
 
-    @Override
-    public Integer getMode() {
-        try {
-            readFile.setNameFile("data_sekolah.csv");
-            FileReader reader = new FileReader(readFile.getNameFile());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while((line = bufferedReader.readLine()) != null){
-                this.tempArr = line.split(";");
 
-                for (int i = 1; i < tempArr.length; i++) {
-                    list.add(Integer.valueOf(tempArr[i]));
-                    int count = 0;
-                    for (int j = 1; j < tempArr.length; j++) {
-                        if (tempArr[j].equals(tempArr[i])){
-                            count++;
-                        }
-                    }
-                    if (count > maxCount){
-                        maxCount = count;
-                        maxValue = Integer.parseInt(tempArr[i]);
-                    }
+    @Override
+    public Integer countMode(List<Integer> getList) {
+        HashMap<Integer, Integer> mapMode = new HashMap<>();
+        int max = 1;
+        int temp = 0;
+        Collections.sort(getList);
+        for (Integer x : getList) {
+            if (mapMode.get(x) != null) {
+                int count = mapMode.get(x);
+                count++;
+                mapMode.put(x, count);
+                if(count > max){
+                    max = count;
+                    temp = x;
                 }
             }
-        } catch (Throwable throwable){
-            System.out.println("Error membaca file : " + throwable.getMessage());
+            else
+                mapMode.put(x,1);
         }
-        return maxValue;
+
+        System.out.println(mapMode);
+
+        return temp;
     }
 
     @Override
-    public Double getAverage() {
-        for (Integer s:list) {
-            int temp = s;
-            sum += temp;
-            totalData += 1;
+    public Double countMean(List<Integer> getList) {
+        double total = 0;
+        for (int s : getList) {
+            total += s;
         }
-        return sum / totalData;
+        return total / (getList.size());
     }
 
     @Override
-    public double getMedian() {
-        Collections.sort(list);
-        int middle = list.size()/2;
+    public double countMedian(List<Integer> getList) {
+        Collections.sort(getList);
+        double median;
+        if (getList.size() % 2 == 1)
+            median = (getList.get(getList.size() / 2) + getList.get((getList.size() / 2) - 1) / 2);
 
-        if ((list.size()) % 2 == 1){
-            return list.get(middle);
-        }
-        else{
-            return (list.get(middle-1) + list.get(middle)) / 2.0;
-        }
+        else
+            //nilai media = nilai (sebelum + sesudah / 2)
+            median = getList.get(getList.size() / 2);
+        return median;
     }
 
     @Override
-    public HashMap<Integer, Integer> getCountWithBounding() {
-        HashMap<Integer, Integer> result = new HashMap<>();
-        Collections.sort(list);
-        return null;
-    }
-
-
-    @Override
-    public int getGreaterThan(Integer input) {
+    public List<Integer> readFile() {
+        String delimiter = ";";
+        String[] tempRead;
+        List<Integer> tempList = new ArrayList<>();
         try {
-            readFile.setNameFile("data_sekolah.csv");
-            FileReader reader = new FileReader(readFile.getNameFile());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while((line = bufferedReader.readLine()) != null){
-                this.tempArr = line.split(";");
-                for (int i = 1; i < tempArr.length; i++) {
-                    if (input < Integer.parseInt(tempArr[i])){
-                        countGreater++;
-                    }
+            File file = new File("data_sekolah.csv");
+            FileReader Filereader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(Filereader);
+            String Line = reader.readLine();
+
+            while (Line != null) {
+                tempRead = Line.split(delimiter);
+                for (int i = 1; i < tempRead.length; i++) {
+                    tempList.add(Integer.valueOf(tempRead[i]));
                 }
+                System.out.println(" ");
+                Line = reader.readLine();
             }
-        } catch (Throwable throwable){
-            System.out.println("Error membaca file : " + throwable.getMessage());
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-       return countGreater;
+        return tempList;
     }
 
     @Override
-    public int getEqual(Integer input) {
-        try {
-            readFile.setNameFile("data_sekolah.csv");
-            FileReader reader = new FileReader(readFile.getNameFile());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while((line = bufferedReader.readLine()) != null){
-                this.tempArr = line.split(";");
-                for (int i = 1; i < tempArr.length; i++) {
-                    if (input == Integer.parseInt(tempArr[i])){
-                        countEqual++;
-                    }
-                }
+    public void getMoreThanMode(HashMap<Integer, Integer> getMapMode, int divider) {
+        int count = 0;
+        for (Integer l : getMapMode.keySet()) {
+            if (l > divider){
+                count++;
             }
-        } catch (Throwable throwable){
-            System.out.println("Error membaca file : " + throwable.getMessage());
+            else {
+                System.out.println(l + " sebanyak " + getMapMode.get(l));
+            }
         }
-        return countEqual;
+        System.out.println("lebih dari "+divider+" sebanyak:" + count);
     }
 
     @Override
-    public int getLessThan(Integer input) {
-        try {
-            readFile.setNameFile("data_sekolah.csv");
-            FileReader reader = new FileReader(readFile.getNameFile());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while((line = bufferedReader.readLine()) != null){
-                this.tempArr = line.split(";");
-                for (int i = 1; i < tempArr.length; i++) {
-                    if (input > Integer.parseInt(tempArr[i])){
-                        countLessThan++;
-                    }
-                }
+    public HashMap<Integer, Integer> countMultipleMode(List<Integer> getList) {
+        HashMap<Integer, Integer> mapMode = new HashMap<>();
+        Collections.sort(getList);
+        for (Integer x : getList) {
+            if (mapMode.get(x) != null) {
+                int count = mapMode.get(x);
+                count++;
+                mapMode.put(x, count);
             }
-        } catch (Throwable throwable){
-            System.out.println("Error membaca file : " + throwable.getMessage());
+            else
+                mapMode.put(x,1);
         }
-        return countLessThan;
+        return mapMode;
     }
 
+    @Override
+    public void getLessThanMode(HashMap<Integer,Integer> getMapMode, int divider) {
+        int count = 0;
+        for (Integer l : getMapMode.keySet()) {
+            if (l < divider){
+                count++;
+            }
+            else {
+                System.out.println(l + " sebanyak " + getMapMode.get(l));
+            }
+        }
+        System.out.println("Kurang dari "+divider+" sebanyak:" + count);
+    }
 }

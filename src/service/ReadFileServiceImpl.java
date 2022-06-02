@@ -1,10 +1,13 @@
 package service;
 
+import entity.ReadFile;
 import repository.ReadFileRepository;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -19,18 +22,20 @@ public class ReadFileServiceImpl implements ReadFileService{
 
     @Override
     public void showMedianModusAverage() {
+
         try{
+            List<Integer> getList = readFileRepository.readFile();
             System.out.print("Masukkan nama file yang akan digenerate: ");
             String namaFile = scanner.nextLine();
             File file = new File(namaFile+".txt");
 
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
-            bwr.write("Nilai Modus : "+readFileRepository.getMode());
+            bwr.write("Nilai Median : "+readFileRepository.countMedian(getList));
             bwr.newLine();
-            bwr.write("Nilai Rata-rata : "+readFileRepository.getAverage());
+            bwr.write("Nilai Rata-rata : "+readFileRepository.countMean(getList));
             bwr.newLine();
-            bwr.write("Nilai Median : "+readFileRepository.getMedian());
+            bwr.write("Nilai Modus : "+readFileRepository.countMode(getList));
             bwr.flush();
             bwr.close();
         } catch (Throwable throwable){
@@ -40,61 +45,73 @@ public class ReadFileServiceImpl implements ReadFileService{
 
     @Override
     public void showDataBoundedBy() {
-        try{
+        try {
+            List<Integer> getList = readFileRepository.readFile();
+            HashMap<Integer,Integer> getMapMode = readFileRepository.countMultipleMode(getList);
+
             System.out.print("Masukkan nama file yang akan digenerate: ");
             String namaFile = scanner.nextLine();
             File file = new File(namaFile+".txt");
-            FileWriter writer = new FileWriter(file);
+
 
             System.out.println("Masukkan batas :");
             System.out.print("--> ");
             Integer input = scanner.nextInt();
 
+            FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
-            bwr.write("Hasil pengelompokkan data dengan nilai batas: " + input);
+
+            bwr.write("");
             bwr.newLine();
+            bwr.write("");
             bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya lebih dari "+ input + " : " + readFileRepository.getGreaterThan(input));
-            bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya sama dengan "+ input + " : " + readFileRepository.getEqual(input));
-            bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya kecil dari "+ input + " : " + readFileRepository.getLessThan(input));
             bwr.flush();
             bwr.close();
-        } catch (Throwable throwable){
-            System.out.println("Error dalam menulis file, " + throwable.getMessage());
+
+
+            System.out.println("map hasil grouping = " + getMapMode);
+            System.out.println(" ");
+            System.out.println("lebih dari : ");
+            readFileRepository.getMoreThanMode(getMapMode,input);
+            System.out.println("");
+            System.out.println("kurang dari : ");
+            readFileRepository.getLessThanMode(getMapMode,input);
         }
+        catch (Throwable throwable){
+            System.out.println("Error saat mencetak file " + throwable.getMessage());
+        }
+
     }
 
     @Override
     public void showAll() {
 
         try {
-            System.out.print("Masukkan nama file yang akan digenerate: ");
-            String namaFile = scanner.nextLine();
-            File file = new File(namaFile+".txt");
-            FileWriter writer = new FileWriter(file);
-
-            System.out.println("Masukkan batas :");
-            System.out.print("--> ");
-            Integer input = scanner.nextInt();
-
-            BufferedWriter bwr = new BufferedWriter(writer);
-            bwr.write("Nilai Modus : "+readFileRepository.getMode());
-            bwr.newLine();
-            bwr.write("Nilai Rata-rata : "+readFileRepository.getAverage());
-            bwr.newLine();
-            bwr.write("Nilai Median : "+readFileRepository.getMedian());
-            bwr.newLine();
-            bwr.write("Hasil pengelompokkan data dengan nilai batas: " + input);
-            bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya lebih dari "+ input + " : " + readFileRepository.getGreaterThan(input));
-            bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya sama dengan "+ input + " : " + readFileRepository.getEqual(input));
-            bwr.newLine();
-            bwr.write("Jumlah Data yang nilainya kecil dari "+ input + " : " + readFileRepository.getLessThan(input));
-            bwr.flush();
-            bwr.close();
+//            System.out.print("Masukkan nama file yang akan digenerate: ");
+//            String namaFile = scanner.nextLine();
+//            File file = new File(namaFile+".txt");
+//            FileWriter writer = new FileWriter(file);
+//
+//            System.out.println("Masukkan batas :");
+//            System.out.print("--> ");
+//            Integer input = scanner.nextInt();
+//
+//            BufferedWriter bwr = new BufferedWriter(writer);
+//            bwr.write("Nilai Modus : "+readFileRepository.countMode());
+//            bwr.newLine();
+//            bwr.write("Nilai Rata-rata : "+readFileRepository.countMean());
+//            bwr.newLine();
+//            bwr.write("Nilai Median : "+readFileRepository.countMedian());
+//            bwr.newLine();
+//            bwr.write("Hasil pengelompokkan data dengan nilai batas: " + input);
+//            bwr.newLine();
+//            bwr.write("Jumlah Data yang nilainya lebih dari "+ input + " : " + readFileRepository.getMoreThanMode(input));
+//            bwr.newLine();
+//            bwr.write("Jumlah Data yang nilainya sama dengan "+ input + " : " + readFileRepository.countMultipleMode(input));
+//            bwr.newLine();
+//            bwr.write("Jumlah Data yang nilainya kecil dari "+ input + " : " + readFileRepository.getLessThanMode(input));
+//            bwr.flush();
+//            bwr.close();
 
         } catch (Throwable throwable){
             System.out.println("Error dalam menulis file, "+ throwable.getMessage());

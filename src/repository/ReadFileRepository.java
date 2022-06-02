@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ReadFileRepository {
-    Integer getMode();
-    Double getAverage();
-    double getMedian();
-    HashMap<Integer, Integer> getCountWithBounding();
-    int getGreaterThan(Integer input);
-    int getEqual(Integer input);
-    int getLessThan(Integer input);
+    Integer countMode(List<Integer> getList);
+    Double countMean(List<Integer> getList);
+    double countMedian(List<Integer> getList);
+    List<Integer> readFile();
+    void getMoreThanMode(HashMap<Integer,Integer> getMapMode, int divider);
+    HashMap<Integer, Integer> countMultipleMode(List<Integer> getList);
+    void getLessThanMode(HashMap<Integer,Integer> getMapMode, int divider);
 
 }
