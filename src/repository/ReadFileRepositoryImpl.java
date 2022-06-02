@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ReadFileRepositoryImpl implements ReadFileRepository{
 
+    private final HashMap<Integer,Integer> groupLessThan = new HashMap<>();
     private final ReadFile readFile = new ReadFile();
     private String line;
     private String[] tempArr;
@@ -127,6 +128,11 @@ public class ReadFileRepositoryImpl implements ReadFileRepository{
                 mapMode.put(x,1);
         }
         return mapMode;
+    }
+
+    @Override
+    public HashMap<Integer, Integer> getGroupLessThan() {
+        return groupLessThan;
     }
 
     @Override

@@ -61,10 +61,38 @@ public class ReadFileServiceImpl implements ReadFileService{
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
 
-            bwr.write("");
+            bwr.write("Output kurang dari " + input);
             bwr.newLine();
-            bwr.write("");
+            HashMap<Integer, Integer> map = readFileRepository.getGroupLessThan();
+            int counts = 0;
+            for (Integer l : getMapMode.keySet()) {
+                if (l < input){
+                    counts++;
+                }
+                else {
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.newLine();
+                }
+            }
+            bwr.write("Kurang dari "+ input +" sebanyak:" + counts);
             bwr.newLine();
+
+            bwr.write("Output Lebih dari " + input);
+            bwr.newLine();
+            HashMap<Integer, Integer> map2 = readFileRepository.getGroupLessThan();
+            int countss = 0;
+            for (Integer l : getMapMode.keySet()) {
+                if (l > input){
+                    countss++;
+                }
+                else {
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.newLine();
+                }
+            }
+            bwr.write("Lebih dari "+ input +" sebanyak:" + countss);
+            bwr.newLine();
+
             bwr.flush();
             bwr.close();
 
