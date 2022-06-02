@@ -1,0 +1,5 @@
+Hasil pengelompokkan data dengan nilai batas: 4
+
+Jumlah Data yang nilainya lebih dari 4 : 198
+Jumlah Data yang nilainya sama dengan 4 : 0
+Jumlah Data yang nilainya kecil dari 4 : 0
