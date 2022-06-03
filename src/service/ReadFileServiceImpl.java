@@ -24,9 +24,7 @@ public class ReadFileServiceImpl implements ReadFileService{
 
         try{
             List<Integer> getList = readFileRepository.readFile();
-            System.out.print("Masukkan nama file yang akan digenerate: ");
-            String namaFile = scanner.nextLine();
-            File file = new File(namaFile+".txt");
+            File file = new File("median-modus-mean.txt");
 
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
@@ -47,10 +45,7 @@ public class ReadFileServiceImpl implements ReadFileService{
         try {
             List<Integer> getList = readFileRepository.readFile();
             HashMap<Integer,Integer> getMapMode = readFileRepository.countMultipleMode(getList);
-
-            System.out.print("Masukkan nama file yang akan digenerate: ");
-            String namaFile = scanner.nextLine();
-            File file = new File(namaFile+".txt");
+            File file = new File("pengelompokkan_data.txt");
 
             System.out.println("Masukkan batas :");
             System.out.print("--> ");
@@ -59,6 +54,15 @@ public class ReadFileServiceImpl implements ReadFileService{
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
 
+            int countInput = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input == getList.get(i)){
+                    countInput++;
+                }
+            }
+            bwr.write("Total Nilai data sama dengan " + input + " yaitu: " + countInput);
+            bwr.newLine();
+            bwr.newLine();
             bwr.write("Data Lebih dari " + input + " yaitu: ");
             bwr.newLine();
 
@@ -99,31 +103,8 @@ public class ReadFileServiceImpl implements ReadFileService{
     public void showAll() {
 
         try {
-//            System.out.print("Masukkan nama file yang akan digenerate: ");
-//            String namaFile = scanner.nextLine();
-//            File file = new File(namaFile+".txt");
-//            FileWriter writer = new FileWriter(file);
-//
-//            System.out.println("Masukkan batas :");
-//            System.out.print("--> ");
-//            Integer input = scanner.nextInt();
-//
-//            BufferedWriter bwr = new BufferedWriter(writer);
-//            bwr.write("Nilai Modus : "+readFileRepository.countMode());
-//            bwr.newLine();
-//            bwr.write("Nilai Rata-rata : "+readFileRepository.countMean());
-//            bwr.newLine();
-//            bwr.write("Nilai Median : "+readFileRepository.countMedian());
-//            bwr.newLine();
-//            bwr.write("Hasil pengelompokkan data dengan nilai batas: " + input);
-//            bwr.newLine();
-//            bwr.write("Jumlah Data yang nilainya lebih dari "+ input + " : " + readFileRepository.getMoreThanMode(input));
-//            bwr.newLine();
-//            bwr.write("Jumlah Data yang nilainya sama dengan "+ input + " : " + readFileRepository.countMultipleMode(input));
-//            bwr.newLine();
-//            bwr.write("Jumlah Data yang nilainya kecil dari "+ input + " : " + readFileRepository.getLessThanMode(input));
-//            bwr.flush();
-//            bwr.close();
+            showDataBoundedBy();
+            showMedianModusAverage();
 
         } catch (Throwable throwable){
             System.out.println("Error dalam menulis file, "+ throwable.getMessage());
@@ -159,7 +140,8 @@ public class ReadFileServiceImpl implements ReadFileService{
                     responseMenu();
                 }
                 case "3" -> {
-                    showAll();
+                    showDataBoundedBy();
+                    showMedianModusAverage();
                     responseMenu();
                 }
                 case "0" -> System.exit(0);
