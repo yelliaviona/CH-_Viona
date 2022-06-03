@@ -1,0 +1,16 @@
+Hasil pengolahan nilai: 
+====================================
+Pengelompokkan nilai dengan acuan nilai 8beserta jumlah siswa tiap 
+====================================
+Daftar nilai yang kurang dari 8Nilai 5 berjumlah 1
+Nilai 6 berjumlah 2
+Nilai 7 berjumlah 62
+
+
+Jumlah siswa yang bernilai 8 adalah 42
+
+Daftar nilai yang lebih dari 8
+Nilai 9 berjumlah 50
+Nilai 10 berjumlah 41
+
+
