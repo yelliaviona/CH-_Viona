@@ -59,7 +59,7 @@ public class ReadFileServiceImpl implements ReadFileService{
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
 
-            bwr.write("Output Lebih dari " + input + " yaitu: ");
+            bwr.write("Data Lebih dari " + input + " yaitu: ");
             bwr.newLine();
 
             int counts = 0;
@@ -68,12 +68,12 @@ public class ReadFileServiceImpl implements ReadFileService{
                     counts++;
                 }
                 else {
-                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.write("Data "+l + " sebanyak " + getMapMode.get(l));
                     bwr.newLine();
                 }
             }
             bwr.newLine();
-            bwr.write("Output Kurang dari " + input + " yaitu: ");
+            bwr.write("Data Kurang dari " + input + " yaitu: ");
             bwr.newLine();
             
             int countss = 0;
@@ -82,11 +82,10 @@ public class ReadFileServiceImpl implements ReadFileService{
                     countss++;
                 }
                 else {
-                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.write("Data "+l + " sebanyak " + getMapMode.get(l));
                     bwr.newLine();
                 }
             }
-            bwr.write(countss);
             bwr.newLine();
             bwr.flush();
             bwr.close();
@@ -94,7 +93,6 @@ public class ReadFileServiceImpl implements ReadFileService{
         catch (Throwable throwable){
             System.out.println("Error saat mencetak file " + throwable.getMessage());
         }
-
     }
 
     @Override
