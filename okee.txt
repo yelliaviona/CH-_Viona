@@ -1,0 +1,10 @@
+Output Lebih dari 3 yaitu: 
+5 sebanyak 1
+Kurang dari 3 sebanyak:06 sebanyak 2
+Kurang dari 3 sebanyak:07 sebanyak 62
+Kurang dari 3 sebanyak:08 sebanyak 42
+Kurang dari 3 sebanyak:09 sebanyak 50
+Kurang dari 3 sebanyak:010 sebanyak 41
+Kurang dari 3 sebanyak:0
+Output Kurang dari 3 yaitu: 
+Lebih dari 3 sebanyak:6

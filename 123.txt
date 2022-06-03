@@ -1,0 +1,9 @@
+Output Lebih dari 8 yaitu: 
+9 sebanyak 50
+10 sebanyak 41
+
+Output Kurang dari 8 yaitu: 
+5 sebanyak 1
+6 sebanyak 2
+7 sebanyak 62
+

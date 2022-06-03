@@ -1,0 +1,9 @@
+Output Lebih dari 5 yaitu: 
+6 sebanyak 2
+7 sebanyak 62
+8 sebanyak 42
+9 sebanyak 50
+10 sebanyak 41
+
+Output Kurang dari 5 yaitu: 
+

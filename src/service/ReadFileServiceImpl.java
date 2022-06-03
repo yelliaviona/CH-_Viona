@@ -1,6 +1,5 @@
 package service;
 
-import entity.ReadFile;
 import repository.ReadFileRepository;
 
 import java.io.BufferedWriter;
@@ -53,7 +52,6 @@ public class ReadFileServiceImpl implements ReadFileService{
             String namaFile = scanner.nextLine();
             File file = new File(namaFile+".txt");
 
-
             System.out.println("Masukkan batas :");
             System.out.print("--> ");
             Integer input = scanner.nextInt();
@@ -61,12 +59,12 @@ public class ReadFileServiceImpl implements ReadFileService{
             FileWriter writer = new FileWriter(file);
             BufferedWriter bwr = new BufferedWriter(writer);
 
-            bwr.write("Output kurang dari " + input);
+            bwr.write("Output Lebih dari " + input + " yaitu: ");
             bwr.newLine();
-            HashMap<Integer, Integer> map = readFileRepository.getGroupLessThan();
+
             int counts = 0;
             for (Integer l : getMapMode.keySet()) {
-                if (l < input){
+                if (l <= input){
                     counts++;
                 }
                 else {
@@ -74,15 +72,13 @@ public class ReadFileServiceImpl implements ReadFileService{
                     bwr.newLine();
                 }
             }
-            bwr.write("Kurang dari "+ input +" sebanyak:" + counts);
             bwr.newLine();
-
-            bwr.write("Output Lebih dari " + input);
+            bwr.write("Output Kurang dari " + input + " yaitu: ");
             bwr.newLine();
-            HashMap<Integer, Integer> map2 = readFileRepository.getGroupLessThan();
+            
             int countss = 0;
             for (Integer l : getMapMode.keySet()) {
-                if (l > input){
+                if (l >= input){
                     countss++;
                 }
                 else {
@@ -90,20 +86,10 @@ public class ReadFileServiceImpl implements ReadFileService{
                     bwr.newLine();
                 }
             }
-            bwr.write("Lebih dari "+ input +" sebanyak:" + countss);
+            bwr.write(countss);
             bwr.newLine();
-
             bwr.flush();
             bwr.close();
-
-
-            System.out.println("map hasil grouping = " + getMapMode);
-            System.out.println(" ");
-            System.out.println("lebih dari : ");
-            readFileRepository.getMoreThanMode(getMapMode,input);
-            System.out.println("");
-            System.out.println("kurang dari : ");
-            readFileRepository.getLessThanMode(getMapMode,input);
         }
         catch (Throwable throwable){
             System.out.println("Error saat mencetak file " + throwable.getMessage());

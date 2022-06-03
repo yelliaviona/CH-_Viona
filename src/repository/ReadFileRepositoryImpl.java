@@ -1,7 +1,5 @@
 package repository;
 
-import entity.ReadFile;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,20 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ReadFileRepositoryImpl implements ReadFileRepository{
-
-    private final HashMap<Integer,Integer> groupLessThan = new HashMap<>();
-    private final ReadFile readFile = new ReadFile();
-    private String line;
-    private String[] tempArr;
-    private List<Integer> list = new ArrayList<>();
-    private int maxCount = 0;
-    private int maxValue = 0;
-    private double sum = 0;
-    private int totalData = 0;
-    private int countGreater = 0;
-    private int countEqual = 0;
-    private int countLessThan = 0;
-
 
     @Override
     public Integer countMode(List<Integer> getList) {
@@ -66,7 +50,7 @@ public class ReadFileRepositoryImpl implements ReadFileRepository{
         Collections.sort(getList);
         double median;
         if (getList.size() % 2 == 1)
-            median = (getList.get(getList.size() / 2) + getList.get((getList.size() / 2) - 1) / 2);
+            median = (getList.get(getList.size() / 2) + getList.get((getList.size() / 2) - 1) / 2.0);
 
         else
             //nilai media = nilai (sebelum + sesudah / 2)
@@ -128,11 +112,6 @@ public class ReadFileRepositoryImpl implements ReadFileRepository{
                 mapMode.put(x,1);
         }
         return mapMode;
-    }
-
-    @Override
-    public HashMap<Integer, Integer> getGroupLessThan() {
-        return groupLessThan;
     }
 
     @Override

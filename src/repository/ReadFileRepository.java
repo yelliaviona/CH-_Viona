@@ -10,8 +10,6 @@ public interface ReadFileRepository {
     List<Integer> readFile();
     void getMoreThanMode(HashMap<Integer,Integer> getMapMode, int divider);
     HashMap<Integer, Integer> countMultipleMode(List<Integer> getList);
-
-    HashMap<Integer, Integer> getGroupLessThan();
     void getLessThanMode(HashMap<Integer,Integer> getMapMode, int divider);
 
 }
