@@ -60,10 +60,22 @@ public class ReadFileServiceImpl implements ReadFileService{
                     countInput++;
                 }
             }
-            bwr.write("Total Nilai data sama dengan " + input + " yaitu: " + countInput);
+            int countInputMoreThan = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input < getList.get(i)){
+                    countInputMoreThan++;
+                }
+            }
+            int countInputLessThan = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input > getList.get(i)){
+                    countInputLessThan++;
+                }
+            }
+            bwr.write("Total Nilai data sama dengan " + input + " sebanyak: " + countInput);
             bwr.newLine();
             bwr.newLine();
-            bwr.write("Data Lebih dari " + input + " yaitu: ");
+            bwr.write("Data Lebih dari " + input + " sebanyak: " + countInputMoreThan);
             bwr.newLine();
 
             int counts = 0;
@@ -72,12 +84,12 @@ public class ReadFileServiceImpl implements ReadFileService{
                     counts++;
                 }
                 else {
-                    bwr.write("Data "+l + " sebanyak " + getMapMode.get(l));
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
                     bwr.newLine();
                 }
             }
             bwr.newLine();
-            bwr.write("Data Kurang dari " + input + " yaitu: ");
+            bwr.write("Data Kurang dari " + input + " sebanyak: " + countInputLessThan);
             bwr.newLine();
             
             int countss = 0;
@@ -86,7 +98,7 @@ public class ReadFileServiceImpl implements ReadFileService{
                     countss++;
                 }
                 else {
-                    bwr.write("Data "+l + " sebanyak " + getMapMode.get(l));
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
                     bwr.newLine();
                 }
             }
@@ -103,8 +115,76 @@ public class ReadFileServiceImpl implements ReadFileService{
     public void showAll() {
 
         try {
-            showDataBoundedBy();
-            showMedianModusAverage();
+            List<Integer> getList = readFileRepository.readFile();
+            HashMap<Integer,Integer> getMapMode = readFileRepository.countMultipleMode(getList);
+
+            System.out.println("Masukkan batas :");
+            System.out.print("--> ");
+            Integer input = scanner.nextInt();
+
+            int countInput = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input == getList.get(i)){
+                    countInput++;
+                }
+            }
+            int countInputMoreThan = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input < getList.get(i)){
+                    countInputMoreThan++;
+                }
+            }
+            int countInputLessThan = 0;
+            for (int i = 1; i < getList.size(); i++) {
+                if (input > getList.get(i)){
+                    countInputLessThan++;
+                }
+
+            }
+            File file = new File("hasil-pengolahan-data-sekolah.txt");
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bwr = new BufferedWriter(writer);
+            bwr.write("Nilai Median : "+readFileRepository.countMedian(getList));
+            bwr.newLine();
+            bwr.write("Nilai Rata-rata : "+readFileRepository.countMean(getList));
+            bwr.newLine();
+            bwr.write("Nilai Modus : "+readFileRepository.countMode(getList));
+            bwr.newLine();
+            bwr.newLine();
+            bwr.write("Total Nilai data sama dengan " + input + " sebanyak: " + countInput);
+            bwr.newLine();
+            bwr.newLine();
+            bwr.write("Data Lebih dari " + input + " sebanyak: " + countInputMoreThan);
+            bwr.newLine();
+
+            int counts = 0;
+            for (Integer l : getMapMode.keySet()) {
+                if (l <= input){
+                    counts++;
+                }
+                else {
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.newLine();
+                }
+            }
+            bwr.newLine();
+            bwr.write("Data Kurang dari " + input + " sebanyak: " + countInputLessThan);
+            bwr.newLine();
+
+            int countss = 0;
+            for (Integer l : getMapMode.keySet()) {
+                if (l >= input){
+                    countss++;
+                }
+                else {
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.newLine();
+                }
+            }
+            bwr.newLine();
+
+            bwr.flush();
+            bwr.close();
 
         } catch (Throwable throwable){
             System.out.println("Error dalam menulis file, "+ throwable.getMessage());
@@ -140,8 +220,7 @@ public class ReadFileServiceImpl implements ReadFileService{
                     responseMenu();
                 }
                 case "3" -> {
-                    showDataBoundedBy();
-                    showMedianModusAverage();
+                    showAll();
                     responseMenu();
                 }
                 case "0" -> System.exit(0);
