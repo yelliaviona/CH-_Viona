@@ -1,0 +1,11 @@
+Total Nilai data sama dengan 6 yaitu: 2
+
+Data Lebih dari 6 yaitu: 
+Data 7 sebanyak 62
+Data 8 sebanyak 42
+Data 9 sebanyak 50
+Data 10 sebanyak 41
+
+Data Kurang dari 6 yaitu: 
+Data 5 sebanyak 1
+
