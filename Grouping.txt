@@ -1,0 +1,11 @@
+Total Nilai data sama dengan 7 yaitu: 62
+
+Data Lebih dari 7 yaitu: 
+Data 8 sebanyak 42
+Data 9 sebanyak 50
+Data 10 sebanyak 41
+
+Data Kurang dari 7 yaitu: 
+Data 5 sebanyak 1
+Data 6 sebanyak 2
+
