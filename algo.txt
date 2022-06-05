@@ -1,0 +1,36 @@
+HashMap<Integer, Integer> map = readFileRepository.getGroupLessThan(); //ini ngambil data dari hasil pengelompokan kurang dari dimasukin ke bentuk HashMap dengan properti map
+            int counts = 0; //ini properti buat ngitung jumlah key dalam map tadi
+            for (Integer l : getMapMode.keySet()) { //ini looping buat cek satu satu ke value dari key di map tadi
+                if (l < input){ //kondisi kalo misal key nya kurang dari nilai batas ...
+                    counts++; //maka si properti count ini nilainya bakal nambah
+                }
+                else { // kalo misalnya udah gk kurang dari ...
+                    bwr.write(l + " sebanyak " + getMapMode.get(l)); //maka bakal nulis jumlahnya di BufferWriter
+                    bwr.newLine();
+                }
+            }
+            bwr.write("Kurang dari "+ input +" sebanyak:" + counts); //abis itu bakal nulis nilai-nilai yang kurang dari batas nilai yang kita input
+            bwr.newLine();
+
+            bwr.write("Output Lebih dari " + input); //terus nulis nilai-nilai yang lebih dari batas nilai yang kita input
+            bwr.newLine();
+
+            /***
+             * Yang ini ke bawah sama kayak yang atas cuma bedanya yang ini lebih dari
+             */
+            HashMap<Integer, Integer> map2 = readFileRepository.getGroupLessThan();
+            int countss = 0;
+            for (Integer l : getMapMode.keySet()) {
+                if (l > input){
+                    countss++;
+                }
+                else {
+                    bwr.write(l + " sebanyak " + getMapMode.get(l));
+                    bwr.newLine();
+                }
+            }
+            bwr.write("Lebih dari "+ input +" sebanyak:" + countss);
+            bwr.newLine();
+
+            bwr.flush();
+            bwr.close();

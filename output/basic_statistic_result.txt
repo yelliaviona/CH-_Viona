@@ -1,8 +1,0 @@
-Hasil pengolahan nilai: 
-====================================
-Nilai rata-rata = 8.318181991577148
-
-Nilai median = 12.0
-
-Nilai modus = 7
-
