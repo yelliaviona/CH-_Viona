@@ -1,3 +1,0 @@
-Nilai Median : 8.0
-Nilai Rata-rata : 8.318181818181818
-Nilai Modus : 7
